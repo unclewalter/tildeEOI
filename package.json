@@ -1,0 +1,9 @@
+{
+  "name": "tildeEOI",
+  "version": "0.0.0",
+  "description": "Expression of interest submissions",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.5.0"
+  }
+}

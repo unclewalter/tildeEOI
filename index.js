@@ -13,13 +13,18 @@ var confirmEmail = function(submissionsDetails, context) {
 
 exports.handler = function(event, context) {
   datetime = new Date();
-  timestamp = datetime.getTime();
+  timestamp = datetime.getTime(); // Generate timestamp for server time
+
   console.log("Incoming: ", event);
 
   console.log("email address =", event.email);
 
-  if (!event.email) context.fail("No email address provided");
-  if (event.email != event.confirm_email) context.fail("Email address and confirmation do not match!");
+  if (!event.email) {
+    context.fail("No email address provided");
+  }
+  else if (event.email != event.confirm_email) {
+    context.fail("Email address and confirmation do not match!");
+  }
 
   console.log("time stamp =", datetime.getTime());
   var submissionDetails = {

@@ -1,6 +1,18 @@
 var aws = require('aws-sdk');
+var logger  = require('morgan');
+
 aws.config.loadFromPath('./aws-config.json');
 
+var debug = function() {
+  if (config.debug) {
+    console.log.apply(console, arguments);
+  }
+};
+
+// log all the things
+app.use(logger('dev'));
+
+var s3 = new aws.S3({});
 var ses = new aws.SES({});
 
 var processSubmission = function(submissionDetails, context) {

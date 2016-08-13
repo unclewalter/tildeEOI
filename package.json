@@ -4,6 +4,7 @@
   "description": "Expression of interest submissions",
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.5.0"
+    "aws-sdk": "^2.5.0",
+    "morgan": "~1.0.0"
   }
 }

@@ -10,11 +10,11 @@ function base64_encode(file) {
     return new Buffer(pdf).toString('base64');
 }
 // convert file to base64 encoded string
-var base64str = base64_encode('/Users/kevanatkins/Developer/AWS/tilde-EOI/event-samples/test.pdf');
+var base64str = base64_encode(__dirname+'/test.pdf');
 
 module.exports = {
     name: "Alffeinne Klaussensonschmidtberg",
-    email: "info@foobarensemble.com",
+    email: "info@foobarensemble.com", 
     confirm_email: "info@foobarensemble.com",
     phone: "123456789",
     discipline: "Nisi ipsum ut in magna nisi minim culpa velit.",

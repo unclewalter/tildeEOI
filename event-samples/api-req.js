@@ -14,7 +14,7 @@ var base64str = base64_encode(__dirname+'/test.pdf');
 
 module.exports = {
     name: "Alffeinne Klaussensonschmidtberg",
-    email: "info@foobarensemble.com", 
+    email: "info@foobarensemble.com",
     confirm_email: "info@foobarensemble.com",
     phone: "123456789",
     discipline: "Nisi ipsum ut in magna nisi minim culpa velit.",

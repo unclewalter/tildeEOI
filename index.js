@@ -2,15 +2,12 @@
 var aws    = require('aws-sdk'),
     crypto = require('crypto'),
     fs     = require('fs'),
-    pdf    = require('pdfkit'),
-    spindrift = require('spindrift');
+    pdf    = require('pdfkit');
 
 // Loading in the secret stuff
 aws.config.loadFromPath('./aws-config.json');
 
-// Amazon services
-// var s3  = new aws.S3({});
-var ses = new aws.SES({});
+// var ses = new aws.SES({});
 
 // TODO: Move to utility functions file.
 var getFilesizeInBytes = function(filename) {
@@ -26,13 +23,16 @@ Process:
 1. Receives Expression of Interest submission details.
 2. Generates hash from email address.
 3. Generates PDF file named <hash>-<timestamp>.pdf using the submission details
+   - TODO: Possibly move this process into another module.
 4. Concatinates CV from submission
 5. Pushes the PDF file to S3.
 */
 var processSubmission = function(submissionDetails, context) {
   var hash        = crypto.createHash('md5').update(submissionDetails.email).digest("hex");
   var filename    = hash + '_' + submissionDetails.timestamp + '.pdf';
-  var filepath    = '/tmp/' + filename;
+  var outFilePath = '/tmp/' + filename;
+  var subFilePath = '/tmp/' + filename;
+  var cvFilePath  = '/tmp/' + filename;
 
   // Initializing objects
   var myDoc       = new pdf({
@@ -44,7 +44,7 @@ var processSubmission = function(submissionDetails, context) {
       right:  72
     }
   });
-  var writeStream = fs.createWriteStream(filepath);
+  var writeStream = fs.createWriteStream(outFilePath);
   var s3obj       = new aws.S3(
         {
     params: {
@@ -159,7 +159,7 @@ var processSubmission = function(submissionDetails, context) {
   myDoc.moveDown(0.5);
 
   // ============
-  myDoc.addPage();
+  // myDoc.addPage();
 
   // Project Title
   myDoc.font('./fonts/Sanchez-Italic.ttf').fontSize(20);
@@ -207,15 +207,31 @@ var processSubmission = function(submissionDetails, context) {
   });
   myDoc.moveDown(0.5);
 
+  // Date
+  myDoc.font('./fonts/Sanchez-Italic.ttf').fontSize(20);
+  myDoc.text('Date: ', {
+    align: 'left'
+  });
+  myDoc.moveDown(0.5);
+
+  var datetime = new Date();
+  datetime.setTime(submissionDetails.timestamp);
+
+  myDoc.font('./fonts/Questrial-Regular.ttf').fontSize(12);
+  myDoc.text(datetime.toDateString(), {
+    align: 'justify'
+  });
+  myDoc.moveDown(0.5);
+
   myDoc.end();
 
 
   writeStream.on('finish', function () {
-    var body = fs.createReadStream(filepath);
+    var body = fs.createReadStream(outFilePath);
     s3obj.upload({Body: body}).
       on('httpUploadProgress', function(evt) { console.log(evt); }).
       send(function(err, data) { console.log(err, data) });
-    console.log('Output file size:' + getFilesizeInBytes(filepath) + ' bytes');
+    console.log('Output file size:' + getFilesizeInBytes(outFilePath) + ' bytes');
   });
 }
 
@@ -252,7 +268,7 @@ module.exports.eoi = function(event, context) {
   // console.log("Incoming: ", event);
 
   console.log("email address =", event.email);
-  console.log("time stamp =", datetime.getTime());
+  console.log("time stamp =", timestamp);
 
   if (!event.email) {
     context.fail("No email address provided");

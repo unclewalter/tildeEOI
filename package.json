@@ -6,6 +6,11 @@
   "main": "index.js",
   "dependencies": {
     "aws-sdk": "^2.5.0",
+    "pdf-merge": "0.0.4",
     "pdfkit": "^0.7.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
   }
 }

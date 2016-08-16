@@ -35,3 +35,5 @@ module.exports = {
     focus_areas: "Trans performers",
     comments: "Anim proident magna occaecat eu dolore sint veniam veniam laborum eu voluptate sint occaecat."
 };
+
+console.log(module.exports);

@@ -65,8 +65,8 @@ Process:
 5. Forwards submission details to processSubmission and confirmEmail functions
 */
 
-exports.handler = function(event, context) {
-  datetime = new Date();
+module.exports.eoi = function(event, context) {
+  datetime  = new Date();
   timestamp = datetime.getTime(); // Generate timestamp for server time
 
   // console.log("Incoming: ", event);

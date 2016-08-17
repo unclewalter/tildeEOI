@@ -8,11 +8,11 @@ $(document).ready(function() {
   $("#submitEOI").click(function() {
     var submissionDetails = $("form").serializeObject();
     $("#submitEOI").html("Submitting...");
-    submissionDetails.cv = [{
+    submissionDetails.cv = {
       type: "",
       filename: "",
       body: ""
-    }];
+    };
     if (cvFile){
       var fname = $('#cvUpload').val().replace("C:\\fakepath\\", "");
       submissionDetails.cv = {
@@ -32,7 +32,20 @@ $(document).ready(function() {
       dataType: 'json',
       success: function(data) {
         var cvFile = document.getElementById('cvUpload').files[0]
-        uploadFile(cvFile, data.cvfilename)
+        if (data.errorMessage) {
+          alert("Error: "+data.errorMessage);
+          $("#submitEOI").html("Submit EOI");
+        } else {
+          if (data.cvfilename) {
+            uploadFile(cvFile, data.cvfilename, function() {
+              $("#submitEOI").html("Submission successful!");
+              $("#submitEOI").attr("disabled", true);
+            });
+          } else {
+            $("#submitEOI").html("Submission successful!");
+            $("#submitEOI").attr("disabled", true);
+          }
+        }
         console.log(data);
       },
       error: function(xhr, ajaxOptions, thrownError) {

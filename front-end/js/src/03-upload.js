@@ -1,4 +1,4 @@
-var uploadFile = function(file, filename) {
+var uploadFile = function(file, filename, callback) {
     var uploads = [];
     var fd = new FormData();
 
@@ -45,7 +45,7 @@ var uploadFile = function(file, filename) {
         }
 
         if (done) {
-          // submitButton.innerHTML = "Submission successful!";
+          callback();
         }
 
     }, false);

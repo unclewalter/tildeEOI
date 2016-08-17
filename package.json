@@ -6,6 +6,10 @@
   "main": "index.js",
   "dependencies": {
     "aws-sdk": "^2.5.0",
+    "mustache": "^2.2.1",
+    "nodemailer": "^2.5.0",
+    "nodemailer-ses-transport": "^1.4.0",
+    "nodemailer-smtp-transport": "^2.6.0",
     "pdf-merge": "0.0.4",
     "pdfkit": "^0.7.2"
   },

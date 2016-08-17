@@ -59,5 +59,5 @@ module.exports.eoi = function(evt, context) {
   };
 
   proc.processSubmission(submissionDetails, context);
-  email.confirmEmail(submissionDetails, context);
+  email.confirmationEmail(submissionDetails, context);
 };

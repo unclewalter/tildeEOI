@@ -1,0 +1,13 @@
+@import "bourbon/bourbon";
+@import "base/base";
+
+.EOI-form-container {
+  max-width: 700px;
+  margin: 2em;
+
+  form {
+    input {
+      margin-bottom: 2em;
+    }
+  }
+}

@@ -13,11 +13,13 @@ defaults:
  stage: dev
  region: eu-west-1
 
+# plugins:
+#   - serverless-cors-plugin
+
 package:
   exclude:
     - tmp
     - .git
-    - aws-config.json
     - front-end
 
 functions:

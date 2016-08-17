@@ -1,0 +1,12 @@
+{
+  "name": "tildeEOI-frontend",
+  "version": "0.0.0",
+  "description": "Expression of interest submissions",
+  "license": "MIT",
+  "dependencies": {
+    "serverless-cors-plugin": "^0.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}

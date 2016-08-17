@@ -261,11 +261,12 @@ Process:
 5. Forwards submission details to processSubmission and confirmEmail functions
 */
 
-module.exports.eoi = function(event, context) {
+module.exports.eoi = function(evt, context) {
+  event = evt.body; // Temporary fix...
   datetime  = new Date();
   timestamp = datetime.getTime(); // Generate timestamp for server time
 
-  // console.log("Incoming: ", event);
+  console.log("Incoming: ", event);
 
   console.log("email address =", event.email);
   console.log("time stamp =", timestamp);

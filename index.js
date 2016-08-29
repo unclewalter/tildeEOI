@@ -6,7 +6,6 @@ var proc   = require('./process-submission'),
 // Loading in the secret stuff
 aws.config.loadFromPath('./aws-config.json');
 
-// var ses = new aws.SES({});
 
 /*
 Function: exports.handler
@@ -41,9 +40,9 @@ module.exports.eoi = function(evt, context) {
 
   var submissionDetails = {
     "timestamp":              timestamp,
+    "submissionType":         event.submissionType,
     "artistName":             event.artistName,
     "email":                  event.email,
-    "confirm_email":          event.confirm_email,
     "phone":                  event.phone,
     "discipline":             event.discipline,
     "bio":                    event.bio,

@@ -14,7 +14,8 @@ aws.config.loadFromPath('./aws-config.json');
 
 module.exports.confirmationEmail = function(submissionDetails, context) {
   var view = {
-    name: submissionDetails.artistName
+    name:          submissionDetails.artistName,
+    project_title: submissionDetails.project_title
   };
   var htmlTemplate = fs.readFileSync('./confirmation-email.html.mustache', 'utf8');
   var emailHtml    = mustache.render(htmlTemplate, view);

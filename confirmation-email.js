@@ -26,7 +26,6 @@ module.exports.confirmationEmail = function(submissionDetails, context) {
   var defaultMailOptions = {
         "from":    mailConf.defaultEmailFrom,
         "to":      mailConf.defaultEmailTo,
-        "bcc":     mailConf.defaultEmailBCC,
         "subject": mailConf.defaultEmailSubject,
         "text":    mailConf.defaultEmailText
     };
@@ -40,7 +39,6 @@ module.exports.confirmationEmail = function(submissionDetails, context) {
     var mailOptions = {
             "from":    defaultMailOptions.from,
             "to":      submissionDetails.email,
-            "bcc":     defaultMailOptions.bcc,
             "subject": "Tilde Expression of Interest Submission",
             "text":    emailText,
             "html":    emailHtml
